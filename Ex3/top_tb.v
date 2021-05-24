@@ -17,8 +17,8 @@ module top_tb(
 	parameter CLK_PERIOD = 10;
 //Todo: Regitsers and wires
 	reg clk, rst, change, on_off;
-    	reg [7:0] counter_out;
-    	reg [7:0] local_counter;
+    	wire [7:0] counter_out;
+    	
     	
     	
 //Todo: Clock generation
@@ -30,8 +30,8 @@ initial
      end
 //Todo: User logic
 	initial 
-		begin
-		local_counter=0;
+		 begin
+		 
     		rst=1;
 		change=0;
 		#10 rst=0;
@@ -47,5 +47,7 @@ initial
 //Todo: Finish test, check for success
 
 //Todo: Instantiate counter module
-  monitor top(.clk (clk),.rst(rst), .change (change), .on_off (on_off), .counter_out (counter_out));
+  monitor top(
+.clk (clk),.rst(rst), .change (change), .on_off (on_off), .counter_out (counter_out)
+);
 endmodule 
