@@ -16,3 +16,44 @@
 //  You need to write the whole file.
 //////////////////////////////////////////////////////////////////////////////////
 
+
+`timescale 1ns / 100ps
+
+module monitor (
+    //Todo: add ports 
+	input clk, 
+	input rst, 
+	input button, 
+
+	output [2:0] colour
+
+    );
+                    
+    //Todo: add registers and wires, if needed
+	
+	reg [2:0] colour;
+	initial colour=3'b000;
+	
+    //Todo: add user logic
+
+      always @(posedge clk)
+	
+	begin
+	if(rst)
+	colour <= 3'b000;
+	else if(colour==3'b111||colour==3'b000)
+	colour <= 3'b001;
+	else if(!button)
+	colour <= colour;
+	else if(colour==3'b110)
+	colour <= 3'b001;
+	else
+	colour <= colour+1'b1;
+	end
+
+endmodule
+
+
+
+
+
