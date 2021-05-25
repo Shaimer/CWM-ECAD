@@ -69,8 +69,9 @@ initial
 		$display ("***TEST FAILED!  On-off=0 does not work! counter_out=%b ***", counter_out);
 		err=1;
 		end
-	forever begin
 	on_off=1;
+	forever begin
+	
 	#(CLK_PERIOD)
 	if (on_off)
 		counter_local=counter_local+1;
@@ -82,7 +83,7 @@ initial
 		$display ("***TEST FAILED!  Check your counting method! counter_out=%b counter_local=%b***", counter_out, counter_local);
 		err=1;
 		end
-	if (counter_local==10 )
+	if (counter_local==8'b11111111||counter_local==8'b00000000 )
 		on_off=~on_off;
 	
 	
@@ -94,10 +95,10 @@ end
 	
 //Todo: Finish test, check for success
 initial begin
-#(CLK_PERIOD*14)
+#(CLK_PERIOD*512)
 if (err==0)
 
-	$display ("***TEST PASSED! You have got 10! counter_out=%d ***", counter_out);
+	$display ("***TEST PASSED!  counter_out=%d ***", counter_out);
 $display("rst=%b, change=%b, on_off=%b, counter_out=%b", rst, change, on_off, counter_out);
 $finish;
 end
