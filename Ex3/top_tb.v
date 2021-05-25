@@ -41,7 +41,7 @@ initial
 	#(CLK_PERIOD)
 		if (counter_out!=0)
 		begin
-		$display ("***TEST FAILED!  counter_out=%b ***", counter_out);
+		$display ("***TEST FAILED!  Reset does not work!counter_out=%b ***", counter_out);
 		err=1;
 		end
 
@@ -50,7 +50,7 @@ initial
 	#(CLK_PERIOD)
 		if (counter_out!=0)
 		begin
-		$display ("***TEST FAILED!  counter_out=%b ***", counter_out);
+		$display ("***TEST FAILED! Change does not work! counter_out=%b ***", counter_out);
 		err=1;
 		end
 
@@ -58,7 +58,7 @@ initial
 	#(CLK_PERIOD)
 		if (counter_out==0)
 		begin
-		$display ("***TEST FAILED!  counter_out=%b ***", counter_out);
+		$display ("***TEST FAILED! On-off=1 does not work! counter_out=%b ***", counter_out);
 		err=1;
 		end
 		
@@ -66,30 +66,40 @@ initial
 	#(CLK_PERIOD)
 		if (counter_out!=0)
 		begin
-		$display ("***TEST FAILED!  counter_out=%b ***", counter_out);
+		$display ("***TEST FAILED!  On-off=0 does not work! counter_out=%b ***", counter_out);
 		err=1;
 		end
-	//forever begin
-	//#(CLK_PERIOD)
-	//if (local_counter=make simgui
-	//
-		//if (counter_out!=counter_local)
-		//begin
-		//$display ("***TEST FAILED!  counter_out=%b counter_local=%b***", counter_out, counter_local);
-		//err=1;
-		//end
+	forever begin
+	on_off=1;
+	#(CLK_PERIOD)
+	if (on_off)
+		counter_local=counter_local+1;
+	else
+		counter_local=counter_local-1;
+	
+	if (counter_out!=counter_local)
+		begin
+		$display ("***TEST FAILED!  Check your counting method! counter_out=%b counter_local=%b***", counter_out, counter_local);
+		err=1;
+		end
+	if (counter_local==10 )
+		on_off=~on_off;
+	
+	
 	$display("rst=%b, change=%b, on_off=%b, counter_out=%b", rst, change, on_off, counter_out);
 	end
+end
 
 
 	
 //Todo: Finish test, check for success
 initial begin
-#(CLK_PERIOD*50)
+#(CLK_PERIOD*14)
 if (err==0)
 
-$display ("***TEST PASSED!  counter_out=%d ***", counter_out);
-
+	$display ("***TEST PASSED! You have got 10! counter_out=%d ***", counter_out);
+$display("rst=%b, change=%b, on_off=%b, counter_out=%b", rst, change, on_off, counter_out);
+$finish;
 end
 //Todo: Instantiate counter module
   monitor top(
