@@ -95,7 +95,7 @@ end
 	
 //Todo: Finish test, check for success
 initial begin
-#(CLK_PERIOD*512)
+#(500)
 if (err==0)
 
 	$display ("***TEST PASSED!  counter_out=%d ***", counter_out);
