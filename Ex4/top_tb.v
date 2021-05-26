@@ -108,7 +108,7 @@ monitor top(
 );	
 //Todo: Finish test, check for success
 initial begin
-#(CLK_PERIOD*500)
+#(500)
 if (err==0)
 
 	$display ("***TEST PASSED! colour=%b ***", colour);
