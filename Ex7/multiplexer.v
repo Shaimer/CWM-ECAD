@@ -22,8 +22,8 @@
 
 module multiplexer(
     //Todo: define inputs here
-    input rgb,
-    input white,
+    input [23:0] rgb,
+    input [23:0] white,
     input sel,
     output [23:0] light);
     

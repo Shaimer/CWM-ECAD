@@ -40,6 +40,7 @@ initial
 	begin
 	err=0;
     	rst=0;
+	sel=0;
 	button=0;
 	//counter_local=0;
 	
