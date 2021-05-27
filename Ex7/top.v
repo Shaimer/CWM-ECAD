@@ -14,4 +14,24 @@
 //           light [23:0]
 //////////////////////////////////////////////////////////////////////////////////
 
+`timescale 1ns / 100ps
 
+module selector(
+    //Todo: define inputs here
+    input clk,
+    input rst,
+    input sel,
+    input button,
+    output [23:0] light );
+    
+    reg [23:0] white=24'hFFFFFF;
+
+	lights the_lights(.clk(clk), .rst(rst), .button(button), .colour(colour));
+
+	converter the_converter(.clk(clk),.colour(colour), .enable(!rst), .rgb(rgb));
+
+	multiplexer the_multiplexer(.rgb(rgb), .white(white), .sel(sel), .light(light));
+
+   
+      
+endmodule
