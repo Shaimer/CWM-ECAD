@@ -22,8 +22,7 @@ module top_tb(
 	reg [2:0] colour_prev;
     	reg err, condition;
 	reg [3:0] counter_local=0;
-	reg [47:0] ab;
-    	reg [47:0] ab_prev;
+	
 	reg [23:0] white=24'hFFFFFF;
     	reg sel;
     	
@@ -40,7 +39,7 @@ initial
 	begin
 	err=0;
     	rst=0;
-	sel=0;
+	sel=1;
 	button=0;
 	//counter_local=0;
 	

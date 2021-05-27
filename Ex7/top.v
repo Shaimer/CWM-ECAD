@@ -25,10 +25,12 @@ module selector(
     output [23:0] light );
     
     reg [23:0] white=24'hFFFFFF;
+	wire [2:0] colour;	
+	wire [23:0] rgb;
 
 	lights the_lights(.clk(clk), .rst(rst), .button(button), .colour(colour));
 
-	converter the_converter(.clk(clk),.colour(colour), .enable(!rst), .rgb(rgb));
+	converter the_converter(.clk(clk),.colour(colour), .enable(1), .rgb(rgb));
 
 	multiplexer the_multiplexer(.rgb(rgb), .white(white), .sel(sel), .light(light));
 
