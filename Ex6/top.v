@@ -29,15 +29,20 @@ module monitor(
 
     );
 
-
+always @(posedge clk)
+	
+	begin
+		if(enable)
+		rgb <= rgb_mem;
+	end
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 mybram  top(
   .clka(clk),    // input wire clka
   .ena(enable),      // input wire ena
-  .wea(wea),      // input wire [0 : 0] wea
-  .addra(addra),  // input wire [3 : 0] addra
-  .dina(dina),    // input wire [23 : 0] dina
-  .douta(douta)  // output wire [23 : 0] douta
+  .wea(1'b0),      // input wire [0 : 0] wea
+  .addra(colour),  // input wire [2 : 0] addra
+  .dina(24'h0),    // input wire [23 : 0] dina
+  .douta(rgb_mem)  // output wire [23 : 0] douta
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 
