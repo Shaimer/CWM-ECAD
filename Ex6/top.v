@@ -23,26 +23,24 @@ module monitor(
 	input clk, 
 	input [2:0] colour,
 	input enable,
-
-	output reg [23:0] rgb
-	
+	output [23:0] rgb	
 
     );
 
-always @(posedge clk)
+/*always @(posedge clk)
 	
 	begin
 		if(enable)
 		rgb <= rgb_mem;
-	end
+	end*/
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
-mybram  top(
+mybram  blockram(
   .clka(clk),    // input wire clka
   .ena(enable),      // input wire ena
   .wea(1'b0),      // input wire [0 : 0] wea
   .addra(colour),  // input wire [2 : 0] addra
   .dina(24'h0),    // input wire [23 : 0] dina
-  .douta(rgb_mem)  // output wire [23 : 0] douta
+  .douta(rgb)  // output wire [23 : 0] douta
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

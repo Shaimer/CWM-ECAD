@@ -37,32 +37,42 @@ initial
 initial 
 begin
 	err=0;
+	enable=0;
 	
-	
-	colour=3'b001;
+	colour=3'b000;
 	#(CLK_PERIOD)
-	if ( rgb==24'h0000FF)
+	if (rgb==24'h00ff00)
 	begin
-		$display ("***TEST FAILED!  Too hot! rgb=%h ***", rgb);
+		$display ("***TEST FAILED!  rgb=%h ***", rgb);
 		err=1;
 	end
+	forever begin
 	
+	enable=1;
+	colour=colour+1'b1;
+	#(CLK_PERIOD*2) //two periods needed
+	if (rgb[23]!=colour[2] ||rgb[15]!=colour[1]||rgb[7]!=colour[0] )
+		begin
+			$display ("***TEST FAILED! Something is wrong! ***");
+			err=1;
+		end
 	
+
+	
+	$display("colour=%b, enable=%b,  err=%b, rgb=%h", colour, enable, err,rgb);
+	end
 		
-	
-	
-	
 end
 
 
 	
 //Todo: Finish test, check for success
 initial begin
-#(500)
+#(700)
 if (err==0)
 
-	$display ("***TEST PASSED! rgb=%h ***", rgb);
-$display("colour=%b, rgb=%b", colour, rgb);
+	$display ("***TEST PASSED! rgb=%h  enable=%b***", rgb, enable);
+$display("colour=%b, rgb=%h", colour, rgb);
 $finish;
 
 end
