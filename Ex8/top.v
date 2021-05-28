@@ -17,6 +17,10 @@ module top(
     input clk_p,
     input clk_n,
      //Todo: add all other ports besides clk_n and clk_p 
+	input rst_n,
+	input [4:0] temperature,
+	output reg heating, 
+	output reg cooling
    );
     
 
@@ -37,5 +41,12 @@ module top(
       );
 
 //Add logic here
+
+wire heating;
+wire cooling;
+
+conditioner the_conditioner( 
+.clk(clk), .temperature(temperature), .heating(heating), .cooling(cooling)
+);
 
 endmodule
