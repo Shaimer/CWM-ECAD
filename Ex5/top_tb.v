@@ -60,8 +60,7 @@ initial
 	
 	forever begin
 	
-	//heating_prev=heating;
-	//cooling_prev=cooling;
+	
 		
 	
 	if (heating==1  && temperature>=20)

@@ -35,19 +35,19 @@ module monitor (
       always @(posedge clk)
 	
 	begin
-		if(temperature>=22)
+		if(temperature>=22||(cooling==1 && temperature>20))
 		begin
 		heating <= 0;
 		cooling <= 1;
 		end
 	
-		else if(temperature<=18)
+		else if(temperature<=18||(heating==1 && temperature<20))
 		begin
 		heating <= 1;
 		cooling <= 0;
 		end
 
-		else if ((cooling==1 && temperature<=20)||(heating==1 && temperature>=20))
+		else 
 		begin
 		heating <= 0;
 		cooling <= 0;
