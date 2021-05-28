@@ -40,7 +40,7 @@ initial
 	
 	
 	temperature=22;
-	#(CLK_PERIOD)
+	#(CLK_PERIOD*2)
 	if ( heating!=0 || cooling!=1)
 	begin
 		$display ("***TEST FAILED!  Too hot! temperature=%b ***", temperature);
@@ -48,11 +48,11 @@ initial
 	end
 	
 	temperature=18;	
-	#(CLK_PERIOD)
+	#(CLK_PERIOD*2)
 	
 	if (heating!=1 || cooling!=0)
 	begin
-		$display ("***TEST FAILED!  Too cold! temperature=%b ***", temperature);
+		$display ("***TEST FAILED!  Too cold! temperature=%d heating=%b cooling=%b***", temperature, heating, cooling);
 		err=1;
 	end
 		
@@ -72,7 +72,7 @@ initial
 	else
 		condition=0;
 	
-	#(CLK_PERIOD)
+	#(CLK_PERIOD*2)
 	if (condition&& (heating!=0 && cooling!=0))
 		begin
 			$display ("***TEST FAILED!  Can't turn-off something!***");
