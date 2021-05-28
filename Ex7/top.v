@@ -27,10 +27,10 @@ module selector(
     reg [23:0] white=24'hFFFFFF;
 	wire [2:0] colour;	
 	wire [23:0] rgb;
-
+	reg enab=1;
 	lights the_lights(.clk(clk), .rst(rst), .button(button), .colour(colour));
 
-	converter the_converter(.clk(clk),.colour(colour), .enable(1), .rgb(rgb));
+	converter the_converter(.clk(clk),.colour(colour), .enable(enab), .rgb(rgb));
 
 	multiplexer the_multiplexer(.rgb(rgb), .white(white), .sel(sel), .light(light));
 
