@@ -28,11 +28,16 @@ module selector(
 	wire [2:0] colour;	
 	wire [23:0] rgb;
 	reg enab=1;
+
+	//Logic
+	assign  light = sel?{rgb}:white; 
+
+
+	
 	lights the_lights(.clk(clk), .rst(rst), .button(button), .colour(colour));
 
 	converter the_converter(.clk(clk),.colour(colour), .enable(enab), .rgb(rgb));
 
-	multiplexer the_multiplexer(.rgb(rgb), .white(white), .sel(sel), .light(light));
 
    
       

@@ -22,7 +22,7 @@ module top_tb(
 	reg [2:0] colour_prev=0;
     	reg err, condition;
 	reg [3:0] counter_local=0;
-	
+	reg button_prev=0;
 	reg [23:0] white=24'hFFFFFF;
     	reg sel;
     	
@@ -47,13 +47,13 @@ initial
 	
 	if (light!=24'h000000)
 	begin
-		$display ("***TEST FAILED!  Initialisation does not work! light=%h, colour=%b ***", light, colour);
+		$display ("***TEST FAILED!  Initialisation does not work! light=%h ***", light);
 		err=1;
 	end
 		
-/*
+
 	rst=1;
-	#(CLK_PERIOD*5)
+	#(CLK_PERIOD*10)
 	if (light!=24'h000000)
 	begin
 		$display ("***TEST FAILED!  Reset does not work! light=%h ***", light);
@@ -61,10 +61,10 @@ initial
 	end
 
 	rst=0;
-	#(CLK_PERIOD*5)
-	if (colour!=24'h0000ff)
+	#(CLK_PERIOD*10)
+	if (light!=24'h0000ff)
 	begin
-		$display ("***TEST FAILED!  Automatic set does not work! colour=%b ***", colour);
+		$display ("***TEST FAILED!  Automatic set does not work! light=%h ***", light);
 		err=1;
 	end
 
@@ -72,9 +72,14 @@ initial
 		
 	
 	button=1;
+	colour=3'b001; //because light==24'b0000ff
 	forever begin
 	colour_prev=colour;
-	#(CLK_PERIOD*5)	
+	button_prev=button;
+	#(CLK_PERIOD)
+	button=0; //so that nothing changes during the next clock periods
+	#(CLK_PERIOD*9)	
+	button=button_prev;
 
 	if (light==24'h0000FF)
 	colour=3'b001;
@@ -92,7 +97,7 @@ initial
 	colour=3'b111;
 	else colour=3'b000;
 	
-	
+
 	if (button)
 	begin
 		if ((colour_prev==3'b110 ||colour_prev==3'b111 ) && colour == 3'b001)
@@ -122,16 +127,16 @@ initial
 		button=~button;
 	counter_local=counter_local+1'b1;
 	
-	$display("rst=%b, button=%b, colour=%b, light=%h, counter_local=%b err=%b", rst, button, colour, light, counter_local,err);
+	$display("rst=%b, button=%b, colour=%b, light=%h, colour_prev=%b counter_local=%b err=%b", rst, button, colour, light, colour_prev, counter_local,err);
 	end
 end
 
 initial begin
        
-       sel=0;
+       sel=1;
        
        forever begin
-         #(CLK_PERIOD*5)
+         #(CLK_PERIOD*10)
 	 
 	 if ((sel&(light==white))| (!sel&(light!=white)))
          begin
@@ -140,13 +145,13 @@ initial begin
          end
 	
  
-          sel=~sel;
-       end*/ 
+          
+       end
      end
 	
 //Todo: Finish test, check for success
 initial begin
-#(700)
+#(1000)
 if (err==0)
 	$display ("***TEST PASSED! colour=%h ***", light);
 $display("rst=%b, button=%b, colour=%h", rst, button, light);
